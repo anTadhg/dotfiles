@@ -1,0 +1,68 @@
+{
+    "spacing": 4, // Gaps between modules (4px)
+
+    "modules-left": ["hyprland/workspaces", "mpd"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/kernel", "custom/updates", "pulseaudio", "disk", "cpu", "memory"],
+
+    "hyprland/workspaces": {
+	"disable-scroll": false,
+        // "scroll-step": 1, // %, can be a float
+	"all-outputs": true,
+	"warp-on-scroll": false,
+	"format": "{name} {icon}",
+	"format-icons": {
+		"urgent": "",
+		"active": "",
+		"default": ""
+       }
+    },
+    "mpd": {
+	"format": "{stateIcon} {artist} - {title}",
+        "format-disconnected": " Disconnected",
+        "format-stopped": " Stopped",
+        "interval": 2,
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "clock": {
+	"format": "{:%H:%M:%S, %A, %d %B %Y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+	"interval": 1
+    },
+    "custom/kernel": {
+	"exec": "uname -sr | sed s/-.*// | sed s/Linux.//",
+	"format": "🐧{}",
+	"interval": 60000
+    },
+    "custom/updates": {
+	"exec": "checkupdates | wc -l",
+	"format": "  {}",
+	"tooltip": true,
+	"tooltip-format": "checkupdates",
+	"interval": 600
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "  {volume}%",
+        "format-icons": {
+            "default": ["", "", ""]
+        }
+    },
+    "disk":{
+	"format": "󰗮 {free}",
+	"tooltip": true
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        "tooltip": true 
+    },
+    "memory": {
+        "format": "  {used}GB/{total}GB",
+	"tooltip": true
+    }
+}
