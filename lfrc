@@ -1,0 +1,108 @@
+# whatever settings
+set shell sh
+set shellopts "-eu"
+set ifs "\n"
+set scrolloff 10
+calcdirsize
+set dircounts false
+set icons true
+
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
+
+set drawbox
+set sixel
+set previewer ~/.config/lf/previewer.sh
+map i $~/.config/lf/previewer.sh $f | less -R
+
+
+#binds
+map R $massren
+map E edit-config
+map H set hidden!
+map <enter> shell
+map V $vim
+map P $cd ~ 
+map X extract
+
+# commands
+# edit config
+cmd edit-config ${{
+  $EDITOR ~/.config/lf/lfrc
+  lf -remote "send $id source ~/.config/lf/lfrc
+}}
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# compress current file or selected files with tar and gunzip
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+# compress current file or selected files with zip
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+# open command
+cmd open ${{
+    case $(file --mime-type -Lb $f) in
+	image/vnd.dfvu|application/octet-stream|application/pdf|application/epub+zip) zathura $f ;;
+	application/vnd.openxmlformats-officedocument.wordprocessingml.document) libreoffice $f ;;
+	image/x-xcf) gimp $f ;;
+	image/*) feh $f ;;
+	audio/*) mpv -ao=pulse $f ;;
+	video/*) mpv -ao=pulse $f --alang=jpn,eng --slang=eng;;
+	text/*) nvim $f ;;
+	*) nvim $f ;;
+    esac
+}}
+
+#cmd open ${{
+#    case $(file --mime-type "$(readlink -f $f)" -b) in
+#	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
+#	image/vnd.djvu|application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+#        text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
+#	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+#	image/svg+xml) display -- $f ;;
+#	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" |
+#		setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
+#			[ -z "$file" ] && continue
+#			lf -remote "send select \"$file\""
+#			lf -remote "send toggle"
+#		done &
+#		;;
+#	audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
+#	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+#	application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+#	application/pgp-encrypted) $EDITOR $fx ;;
+#	application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template|application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint|application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template|application/vnd.oasis.opendocument.formula|application/vnd.oasis.opendocument.database) setsid -f libreoffice $fx >/dev/null 2>&1 ;;
+#        application/octet-stream) case ${f##*.} in
+#			doc|docx|xls|xlsx|odt|ppt|pptx) setsid -f libreoffice $fx >/dev/null 2>&1 ;;
+#			ghw) setsid -f gtkwave $f >/dev/null 2>&1 ;;
+#			ts) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+#			*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+#	   	esac ;;
+#	*) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+#    esac
+#}}
