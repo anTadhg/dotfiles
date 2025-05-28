@@ -1,0 +1,3 @@
+notify-always yes
+notify-program /usr/bin/notify-send
+browser brave
