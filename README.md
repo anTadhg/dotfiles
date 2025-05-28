@@ -4,7 +4,7 @@ They're pretty nice!
 ## Packages that are used
 - Hyprland
 -- Hyprpaper
--- waybar
+ waybar
 - foot
 - zsh
 -- p10k
