@@ -7,6 +7,9 @@ They're pretty nice!
  waybar
 - foot
 - zsh
+-- quotinator
+-- figlet
+-- lolcat
 -- p10k
 - lf
 -- massren
