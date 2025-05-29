@@ -101,4 +101,4 @@ bindkey '^[[B' 'history-substring-search-down'
 [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-# quotinator | figlet -t
+quotinator | figlet -t -f ~/.local/share/figlet/fonts/ansi-shadow.flf | lolcat -tf
