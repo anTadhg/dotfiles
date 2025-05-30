@@ -11,6 +11,9 @@ They're pretty nice!
 -- figlet
 -- lolcat
 -- p10k
+-- zsh-syntax-hilighting
+-- zsh-autosuggestions
+-- zsh-history-substring-search
 - lf
 -- massren
 - newsboat
