@@ -36,11 +36,10 @@
 
     "mpris": {
       "title-len": 60,
-      "format": "{player_icon} {title} - {artist}",
-	"format-paused": "{status_icon} <i>{title} - {artist}</i>",
+      "format": "{player_icon} {title}",
+	"format-paused": "{status_icon} <i>{title}</i>",
 	"player-icons": {
-		"default": "▶",
-		"mpv": "🎵"
+		"default": "▶"
 	},
 	"status-icons": {
 		"paused": "⏸"
