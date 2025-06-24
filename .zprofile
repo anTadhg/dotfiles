@@ -1,6 +1,6 @@
 export PATH="$PATH:$HOME/.local/bin"
 # Default Programmes
-export TERMINAL="footlcient"
+export TERMINAL="footclient"
 export BROWSER="firefox"
 export READER="zathura"
 export EDITOR="nvim"
