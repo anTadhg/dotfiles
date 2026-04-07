@@ -3,8 +3,9 @@ They're pretty nice!
 
 ## Packages that are used
 - Hyprland
--- Hyprpaper
- waybar
+- niri (optional vs Hyprland)
+- awww
+- waybar
 - foot
 - zsh
 -- quotinator
@@ -16,6 +17,6 @@ They're pretty nice!
 -- zsh-history-substring-search
 - lf
 -- massren
+- yazi (replaces lf)
 - newsboat
 - neovim
-- mutt
