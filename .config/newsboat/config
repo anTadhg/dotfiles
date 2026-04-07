@@ -1,0 +1,4 @@
+text-width 80
+notify-always yes
+notify-program /usr/bin/notify-send
+browser zen-browser

@@ -1,0 +1,186 @@
+{
+    "layer": "top",
+    "spacing": 0,
+    "height": 0,
+
+    "margin-top": 8,
+    "margin-right": 8,
+    "margin-bottom": 0,
+    "margin-left": 8,
+
+    "modules-left": [
+	"niri/workspaces",
+        "hyprland/workspaces",
+        "mpris"
+    ],
+
+    "modules-center": [
+        "clock",
+	"custom/notification"
+    ],
+
+    "modules-right": [
+	"custom/kernel",
+	"custom/updates",
+	"backlight",
+        "pulseaudio",
+	"disk",
+        "cpu",
+        "memory",
+	"battery",
+	"network",
+	"bluetooth",
+        "tray"
+    ],
+
+    "niri/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "tooltip": false
+    },
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "tooltip": false
+    },
+
+    "mpris": {
+      "title-len": 60,
+      "format": "{player_icon} {title}",
+	"format-paused": "{status_icon} <i>{title}</i>",
+	"player-icons": {
+		"default": "▶"
+	},
+	"status-icons": {
+		"paused": "⏸"
+	}
+    },
+
+    "clock": {
+	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:L%H:%M:%S %A %d %B %Y}",
+	"locale": "ga_IE.UTF-8",
+	"interval": 1,
+	"on-click": "footclient calcurse"
+        //"tooltip-format": "{<big>{:%Y :B}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+
+    "custom/notification": {
+	"tooltip": false,
+	"format": "{icon}",
+        "format-icons": {
+	  "notification": "<span foreground='red'><sup></sup></span>",
+	  "none": "",
+	  "dnd-notification": "<span foreground='red'><sup></sup></span>",
+	  "dnd-none": "",
+	  "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+	  "inhibited-none": "",
+	  "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+	  "dnd-inhibited-none": ""
+	},
+	"return-type": "json",
+      	"exec-if": "which swaync-client",
+      	"exec": "swaync-client -swb",
+      	"on-click": "swaync-client -t -sw",
+      	"on-click-right": "swaync-client -d -sw",
+      	"escape": true,
+	"justify": "center"
+    },
+
+    "custom/kernel": {
+	"exec": "uname -sr | sed s/-.*// | sed s/Linux.//",
+	"format": "󰻀 {}",
+	"interval": 60000
+    },
+
+    "custom/updates": {
+	"exec": "checkupdates | wc -l",
+	"format": "󰣇 {}",
+	"tooltip-format": "$checkupdates",
+	"on-click": "footclient yay",
+	"interval": 600
+    },
+
+    "backlight" :{
+	"format": "{icon} {percent}%",
+	"format-icons": [""]
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "max-volume": 150,
+	"format": "{icon} {volume}%",
+        "format-muted": "󰸈 {volume}%",
+	"format-icons": {
+            "default": ["󰕿", "", ""]
+	},
+        "nospacing": 1,
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+
+    "disk":{
+      "format": " {free}"
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 90
+        }
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 80
+        }
+    },
+
+    "bluetooth": {
+	"format": "󰂲", 
+	"format-connected": "󰂯",
+	"format-connected-battery": "󰂯 {device_battery_percentage}%",
+	"tooltip-format": "{controller_alias}\t{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	"on-click": "blueman-manager"
+    },
+
+    "network": {
+        "interface": "wlp2s0",
+	"interval": 5,
+        "format": "{ifname}",
+        "format-wifi": "󰖩 {bandwidthTotalBytes}",
+        "format-ethernet": " {bandwidthTotalBytes}",
+        "format-disconnected": "󰖪 ", 
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+        "tooltip-format-wifi": "  {essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "  {ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "footclient nmtui"
+    },
+
+    "battery": {
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "max-length": 25,
+	"tooltip-format": "{timeTo}"
+    },
+
+    "tray": {
+        "spacing": 10,
+        "tooltip": false
+    }
+}
